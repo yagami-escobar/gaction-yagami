@@ -1,4 +1,4 @@
-cname: hola-mundo  ## Nombre del WorkFlow que figura en la sección de Actions
+name: hola-mundo  ## Nombre del WorkFlow que figura en la sección de Actions
 run-name: ¡Estoy aprendiendo Github Action Y1! # Nombre del Workflow que figura en la sección de Actions.
 on: ## Activa el Workflow solo para Eventos push or pull request para la branch "main"
   push:
