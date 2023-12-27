@@ -11,7 +11,7 @@ on:
     paths: ['**.yml']
     
   schedule:  # SCHEDULE
-    - cron: '59 23 * * *'
+    - cron: '59 23 * * SUN'
   
   workflow_dispatch:  # WORKFLOW_DISPATCH
 
@@ -32,7 +32,7 @@ jobs:
         uses: haythem/public-ip@v1.3
         
       - name: Define Variable USERNAME   
-        run: echo "USERNAME=${{github.actor}}" >> $GITHUB_ENV
+        run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
       
       - name: Run multi-line script
         run: |
