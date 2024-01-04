@@ -1,0 +1,48 @@
+name: expresiones
+run-name: ¿Aprendiendo expresiones!
+on:
+  push:
+    branches: ['main', 'aprendiendo-**']
+  workflow_dispatch:
+    inputs:
+      edad:
+        description: 'Edad'
+        required: true
+        type: integer 
+      nombre:
+        description: 'Nombre'
+        required: true
+        default: 'Jhordan'
+        type: string
+      lp:
+        description: 'LP favorito'
+        required: true
+        default: Java
+        type: choice
+        options: ['Java', 'Python', 'Go', 'Shell Script']
+jobs:
+  job-lp:
+    runs-on: ubuntu-latest
+    steps:
+      - name: LP seleccionado
+        run: |
+          if ${{ inputs.lp == 'Java'}}; then
+            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
+          elif ${{ inputs.lp == 'Python' }}; then
+            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
+          elif ${{ inputs.lp == 'Go'}}; then
+            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
+          fi ${{ inputs.lp == 'Shell Script' }}; then
+            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
+  job-edad-mayor:
+    if: ${{inputs.edad>=18}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Corre script mayor
+        run: echo ${{ inputs.nombre }} es mayor de edad !!
+  job-edad-menor:
+    if: ${{inputs.edad<18}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Correr script menor
+        run: echo ${{ inputs.nombre }} es menor de edad !!
