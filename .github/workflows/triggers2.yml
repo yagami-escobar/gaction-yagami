@@ -1,0 +1,57 @@
+name: triggers2
+run-name: ¡Aprendiendo varios triggers!
+on:
+  push:
+    branches: ['main']
+  issues:
+    types: [labeled] # Va correr cuando creemmos un issue y etiquetemos
+  pull_request:
+    types: [opened, synchronize, reopened]  
+    # OPENED -> Cada vez que se habra un pull request,  
+    # SYNCHRONIZE -> Corre cada vez que subamos un nuevo commit y hagamos push sobre una rama que tenga un PR abierto
+    # REOPENED -> 
+    branches: ['main', 'aprendiendo-**']
+    paths: ['**.yml']
+  workflow_dispatch:
+    inputs:
+      lps:
+        description: 'Lenguaje Favorito'
+        default: Python
+        required: true
+        type: choice
+        options: [Python, Js, Go]
+      nombre:
+        description: 'Tu nombre'
+        required: true
+        default: Jhordna
+        type: string
+  schedule:
+    - cron: '59 23 * * *'
+jobs:
+  job1-hola-mundo-manual:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Clonar repo en runner
+       uses: actions/checkout@v4
+     - name: Setup Python Environment
+       uses: actions/setup-python@v5
+     - name: Define NAME
+       run: echo "USERNAME=${{ inputs.nombre }}" >> $GITHUB_ENV
+     - name: Define LANGUAGE
+       run: echo "LANGUAGE=${{ inputs.lps }}" >> $GITHUB_ENV
+     - name: Correr script
+       run:  python hola-lenguage.py
+  hola-mundo:
+    if: ${{ github.event_name != 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repo en runner
+        uses: actions/checkout@v4
+      - name: Setup Python ENvironment
+        run: actions/setup-python@v5
+      - name: Define Var1
+        run:  echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+      - name: Correr Script
+        run: python hola-mundo.py
+ 
+       
