@@ -40,7 +40,7 @@ jobs:
      - name: Define LANGUAGE
        run: echo "LANGUAGE=${{ inputs.lps }}" >> $GITHUB_ENV
      - name: Correr script
-       run:  python hola-lenguage.py
+       run:  python hola-lenguaje.py
   hola-mundo:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
