@@ -41,7 +41,7 @@ jobs:
        run: echo "LANGUAGE=${{ inputs.lps }}" >> $GITHUB_ENV
      - name: Correr script
        run:  python hola-lenguaje.py
-  jobs2-no-manual:
+  job2-automatic:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
