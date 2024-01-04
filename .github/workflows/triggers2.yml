@@ -23,7 +23,7 @@ on:
       nombre:
         description: 'Tu nombre'
         required: true
-        default: Jhordna
+        default: Jhordan
         type: string
   schedule:
     - cron: '59 23 * * *'
@@ -31,13 +31,13 @@ jobs:
   job1-hola-mundo-manual:
     runs-on: ubuntu-latest
     steps:
-     - name: Clonar repo en runner
+     - name: Hacer Checkout
        uses: actions/checkout@v4
      - name: Setup Python Environment
        uses: actions/setup-python@v5
-     - name: Define NAME
+     - name: Define USERNAME
        run: echo "USERNAME=${{ inputs.nombre }}" >> $GITHUB_ENV
-     - name: Define LANGUAGE
+     - name: Define LPS
        run: echo "LANGUAGE=${{ inputs.lps }}" >> $GITHUB_ENV
      - name: Correr script
        run:  python hola-lenguaje.py
@@ -45,11 +45,11 @@ jobs:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
-      - name: Clonar repo en runner
+      - name: Hacer Checkout
         uses: actions/checkout@v4
-      - name: Setup Python ENvironment
-        run: actions/setup-python@v5
-      - name: Define Var1
+      - name: Setup Python Environment
+        uses: actions/setup-python@v5
+      - name: Define GITHUB.ACTOR
         run:  echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
       - name: Correr Script
         run: python hola-mundo.py
