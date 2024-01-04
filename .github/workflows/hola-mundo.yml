@@ -1,0 +1,31 @@
+name: hola-mundo  ## Nombre del WorkFlow que figura en la sección de Actions
+run-name: ¡Estoy aprendiendo Github Action Y1! # Nombre del Workflow que figura en la sección de Actions.
+on: ## Activa el Workflow solo para Eventos push or pull request para la branch "main"
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  
+  workflow_dispatch: # Permite ejecutar este workflow manualmente desde la Tab Acciones
+jobs: ## Un Workflow se compone of one or more jobs that can run sequentially or in parallel
+  build:  ## Nombre del Job
+    runs-on: ubuntu-latest  ## Runner
+    steps:  ## Lista de steps del Job build
+      - name: Checkout Code         ## Hacer el Checkout permite clonar el repo en el runner
+        uses: actions/checkout@v4   ## Uso el action actions/checkout
+      
+      - name: Setup Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Define Variable
+        run: echo "USERNAME=${{ github.actor }}" >> $GITHUB_ENV
+        
+      - name: Public IP
+        id: ip
+        uses: haythem/public-ip@v1.3  ## Uso el action haythem/public-ip
+
+      - name: Run a multi-line script
+        run: |
+          echo Hello World from ${{ steps.ip.outputs.ipv4 }}
+          python hola-mundo.py
