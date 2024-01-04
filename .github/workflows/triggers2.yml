@@ -28,7 +28,7 @@ on:
   schedule:
     - cron: '59 23 * * *'
 jobs:
-  job1-hola-mundo-manual:
+  job1-manual:
     runs-on: ubuntu-latest
     steps:
      - name: Hacer Checkout
@@ -41,7 +41,7 @@ jobs:
        run: echo "LANGUAGE=${{ inputs.lps }}" >> $GITHUB_ENV
      - name: Correr script
        run:  python hola-lenguaje.py
-  hola-mundo:
+  jobs2-no-manual:
     if: ${{ github.event_name != 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     steps:
