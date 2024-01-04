@@ -18,29 +18,34 @@ on:
         default: 'Java'
         type: choice
         options: ['Java', 'Python', 'Go', 'Shell Script']
+      #tag:
+      #  description: 'Test scenario tags'
+      #  required: false
+      #  type: boolean
+      environment:
+        description: 'Environment to run test against'
+        required: true
+        type: environment
+        options: ['staging', 'dev', 'cert', 'prod']
 jobs:
-  job-lp:
+  job1:
     runs-on: ubuntu-latest
     steps:
-      - name: LP seleccionado
-        run: |
-          if ${{ inputs.lp == 'Java'}}; then
-            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
-          elif ${{ inputs.lp == 'Python' }}; then
-            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
-          elif ${{ inputs.lp == 'Go'}}; then
-            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
-          fi ${{ inputs.lp == 'Shell Script' }}; then
-            echo ${{ inputs.nombre }} tu LP favorito es ${{inputs.lp}}
-  job-edad-mayor:
-    if: ${{inputs.edad>=18}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Corre script mayor
-        run: echo ${{ inputs.nombre }} es mayor de edad !!
-  job-edad-menor:
-    if: ${{inputs.edad<18}}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Correr script menor
-        run: echo ${{ inputs.nombre }} es menor de edad !!
+      - name: Hacer Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python Environment
+        uses: actions/setup-python@v5
+      - name: Definir LANGUAGE
+        run: echo "LANGUAGE=${{ inputs.lps }}" >> $GITHUB_ENV
+      - name: Definir NOMBRE
+        run: echo "NOMBRE=${{ inputs.nombre }}" >> $GITHUB_ENV
+      - name: Definir LP    
+        run: echo "LP=${{ inputs.lp }}" >> $GITHUB_ENV
+    #  - name: Definir TAG    
+    #    run: echo "TAG=${{ inputs.tag }}" >> $GITHUB_ENV
+      - name: Definir ENVIRONMENT    
+        run: echo "ENVIRONMENT=${{ inputs.environment }}" >> $GITHUB_ENV
+      - name: Run File Python
+        run: python expresiones.py
+          
+          
