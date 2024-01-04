@@ -1,8 +1,6 @@
 name: expresiones
-run-name: ¿Aprendiendo expresiones!
+run-name: ¡Aprendiendo expresiones!
 on:
-  push:
-    branches: ['main', 'aprendiendo-**']
   workflow_dispatch:
     inputs:
       edad:
@@ -17,7 +15,7 @@ on:
       lp:
         description: 'LP favorito'
         required: true
-        default: Java
+        default: 'Java'
         type: choice
         options: ['Java', 'Python', 'Go', 'Shell Script']
 jobs:
