@@ -24,7 +24,7 @@ on:
       #  type: boolean
       environment:
         description: 'Environment to run test against'
-        required: true
+        required: false
         type: environment
         options: ['staging', 'dev', 'cert', 'prod']
 jobs:
